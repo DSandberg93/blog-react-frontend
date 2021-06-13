@@ -5,10 +5,11 @@ import Landing from 'pages/Landing';
 import TheVoid from 'pages/TheVoid';
 import Navbar from 'components/Navbar';
 import Posts from 'pages/Posts/index';
+import Footer from 'components/Footer/index';
 
 function App() {
   return (
-    <div className="App">
+    <div id="app">
       <BrowserRouter>
         <Navbar />
         <Switch>
@@ -23,6 +24,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }
