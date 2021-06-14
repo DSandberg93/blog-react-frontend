@@ -1,10 +1,11 @@
 import React from 'react';
+import Container from 'components/Container';
 
 const TheVoid = () => {
   return (
-    <div>
+    <Container padding="full">
       This page belongs to The Void!
-    </div>
+    </Container>
   );
 };
 

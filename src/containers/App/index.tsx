@@ -6,6 +6,7 @@ import TheVoid from 'pages/TheVoid';
 import Navbar from 'components/Navbar';
 import Posts from 'pages/Posts/index';
 import Footer from 'components/Footer/index';
+import ManagePost from 'pages/ManagePost';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route exact path="/posts">
             <Posts />
+          </Route>
+          <Route exact path="/posts/create">
+            <ManagePost />
           </Route>
           <Route path="*">
             <TheVoid />
