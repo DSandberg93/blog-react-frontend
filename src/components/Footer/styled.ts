@@ -5,4 +5,5 @@ export const FooterContainer = styled.div`
   box-sizing: border-box;
   padding: 20px;
   text-align: center;
+  margin-top: auto;
 `;
