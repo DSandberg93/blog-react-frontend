@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 
 import Container from 'components/Container';
 
-import { ManagePostProps as IProps, ManagePostState as IState } from './types';
+import { ManagePostProps as IProps } from './types';
 import TextEditor from 'components/TextEditor/index';
 
-class PostManager extends React.PureComponent <IProps, IState> {
-  render() {
-    return (
-      <Container padding="full">
-        <div>Post Manager</div>
-        <TextEditor />
-      </Container>
-    );
-  }
+function PostManager({ history }: IProps) {
+  console.log(history);
+  const [postContent, setPostContent] = useState<string[]>([]);
+  const [postTitle, setPostTitle] = useState('');
+
+  const onSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(postTitle, postContent);
+  };
+
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostTitle(e.currentTarget.value);
+  };
+
+  return (
+    <Container padding="full">
+      <div>Post Manager</div>
+      <form onSubmit={onSubmitPost}>
+        <input type="text" onChange={onChangeTitle} placeholder="Post Title" />
+        <TextEditor onChange={(postContent: string[]) => setPostContent(postContent)} />
+        <button role="submit">Save Post</button>
+      </form>
+    </Container>
+  );
 }
 
 export default withRouter(PostManager);
