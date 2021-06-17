@@ -2,22 +2,24 @@ import styled from 'styled-components';
 
 export const TextEditorInput = styled.textarea`
   width: 100%;
-  height: 960px;
+  display: block;
+  max-height: 960px;
+  line-height: 21px;
   padding: 8px;
   border: 1px solid lightgrey;
-  border-radius: 4px;
+  border-radius: 8px;
   outline: none;
+  resize: none;
   box-sizing: border-box;
   font: inherit;
-  grid-area: 1 / 1 / 2 / 2;
-  resize: none;
   overflow-y: auto;
 
   &:focus {
     border: 1px solid grey;
   }
-
-  p:last-of-type {
-    margin: 0;
+  
+  &[contenteditable]:empty::before {
+    content: "Post content";
+    color: gray;
   }
 `;

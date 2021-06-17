@@ -7,8 +7,7 @@ import { ManagePostProps as IProps } from './types';
 import TextEditor from 'components/TextEditor/index';
 
 function PostManager({ history }: IProps) {
-  console.log(history);
-  const [postContent, setPostContent] = useState<string[]>([]);
+  const [postContent, setPostContent] = useState('');
   const [postTitle, setPostTitle] = useState('');
 
   const onSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,7 +24,7 @@ function PostManager({ history }: IProps) {
       <div>Post Manager</div>
       <form onSubmit={onSubmitPost}>
         <input type="text" onChange={onChangeTitle} placeholder="Post Title" />
-        <TextEditor onChange={(postContent: string[]) => setPostContent(postContent)} />
+        <TextEditor onChange={(postContent: string) => setPostContent(postContent)} />
         <button role="submit">Save Post</button>
       </form>
     </Container>
