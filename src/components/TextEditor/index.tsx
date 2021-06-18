@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { TextEditorProps as IProps } from './types';
-import { TextEditorInput } from './styled';
+import { TextEditorInput, TextMeasurer, TextEditorContainer } from './styled';
 
 const TextEditor = ({ onChange }: IProps) => {
   const [text, setText] = useState(['']);
 
   const onInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
-    setText(value.split('\n'));
+    const textList = value.split('\n');
+    setText(textList);
     onChange(value);
   };
 
   return (
-    <TextEditorInput onInput={onInput} rows={text.length} />
+    <TextEditorContainer>
+      <TextEditorInput onInput={onInput} />
+      <TextMeasurer id="text-measurer">{text.map((textRow, index) => <div key={index}>{textRow?.trim().length ? textRow : '.'}</div>)}</TextMeasurer>
+    </TextEditorContainer>
   );
 };
 
