@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import Container from 'components/Container';
+import TextEditor from 'components/TextEditor/index';
+import { createPost } from 'api';
 
 import { ManagePostProps as IProps } from './types';
-import TextEditor from 'components/TextEditor/index';
 
 function PostManager({ history }: IProps) {
   const [postContent, setPostContent] = useState('');
@@ -12,11 +13,19 @@ function PostManager({ history }: IProps) {
 
   const onSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(postTitle, postContent);
+    if (postTitle && postContent) {
+      onCreatePost(postTitle, postContent);
+    }
   };
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPostTitle(e.currentTarget.value);
+  };
+
+  const onCreatePost = (title: string, content: string) => {
+    createPost({ title, content })
+      .then(() => history.push('/posts'))
+      .catch(() => console.log('failed to create post'));
   };
 
   return (

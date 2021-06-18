@@ -7,6 +7,7 @@ import Navbar from 'components/Navbar';
 import Posts from 'pages/Posts';
 import Footer from 'components/Footer';
 import ManagePost from 'pages/ManagePost';
+import Post from 'pages/Post';
 
 import { AppContainer } from './styled';
 
@@ -26,6 +27,10 @@ function App() {
           </Route>
           <Route exact path="/posts/create">
             <ManagePost />
+          </Route>
+          <Route exact path="/posts/:post">
+            <Post />
+            <Footer />
           </Route>
           <Route path="*">
             <TheVoid />

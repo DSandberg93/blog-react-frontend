@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Container from 'components/Container';
 
-import { PostsProps as IProps, PostsState as IState } from './types';
+import { PostsProps as IProps } from './types';
 import Link from 'components/Link';
+import { TPost } from 'types/post';
+import { fetchPosts } from 'api';
+import PostExcerpt from './components/PostExcerpt/index';
 
-class Posts extends React.PureComponent<IProps, IState> {
-  render() {
+export default function Posts(props: IProps) {
+  const [posts, setPosts] = useState<TPost[]>([]);
+
+  fetchPosts().then((newPosts) => setPosts(newPosts));
+
+  const renderPosts = () => {
     return (
-      <Container padding="full">
-        Posts, coming soon...
-        <Link to="/posts/create">Create new Post</Link>
-      </Container>
+      <div>
+        {posts.map((post, index) => <PostExcerpt key={index} {...post} />)}
+      </div>
     );
-  }
-}
+  };
 
-export default Posts;
+  return (
+    <Container padding="full">
+      <h2>Posts</h2>
+      {renderPosts()}
+      <Link to="/posts/create">Create new Post</Link>
+    </Container>
+  );
+}
