@@ -1,3 +1,4 @@
 export interface TextEditorProps {
-  onChange: (text: string) => void,
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
+  value: string,
 }

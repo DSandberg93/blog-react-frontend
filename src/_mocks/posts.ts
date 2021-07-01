@@ -1,6 +1,12 @@
 import { TPostCreateRequest, TPost } from 'types/post';
 
-const posts: TPost[] = [];
+const posts: TPost[] = [
+  {
+    content: 'content',
+    title: 'first',
+    url: 'first',
+  },
+];
 
 export const getPosts = () => posts;
 
@@ -21,11 +27,11 @@ export const deletePost = (title: string) => {
   return false;
 };
 
-export const updatePost = (post: TPost) => {
+export const updateMockPost = (post: TPost) => {
   const index = posts.findIndex((existingPost) => post.title === existingPost.title);
   if (index >= 0) {
     posts[index] = post;
-    return true;
+    return post;
   }
   return false;
 };

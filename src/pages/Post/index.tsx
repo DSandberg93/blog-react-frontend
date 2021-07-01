@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import Container from 'components/Container';
 import { fetchPost } from 'api';
@@ -8,11 +8,10 @@ import parsePostContent from 'parsers/parsePostContent';
 import TheVoid from 'pages/TheVoid';
 
 import { PostProps as IProps } from './types';
-import Button from 'components/Button/index';
+import ManagePost from 'pages/ManagePost';
 
 function Post({ match }: IProps) {
   const [post, setPost] = useState<TPost>(null);
-  const [currentSite, setCurrentSite] = useState<'read' | 'edit'>('read');
 
   if (!post) {
     fetchPost(match.params.post)
@@ -21,12 +20,21 @@ function Post({ match }: IProps) {
 
     return <TheVoid />;
   }
+
+  console.log(match.params.action);
+
+  if (match.params.action == 'edit') {
+    return (
+      <ManagePost post={post} />
+    );
+  }
+
   return (
     <Container padding="full">
       <h2>{post?.title}</h2>
       <div>{parsePostContent(post?.content)}</div>
-      {post?.title && currentSite !== 'edit' &&
-        <Button onClick={() => setCurrentSite('edit')} role="button">{`Edit ${post.title}`}</Button>
+      {post?.title &&
+        <Link to={`/posts/${match.params.post}/edit`}>Edit {match.params.post}</Link>
       }
     </Container>
   );

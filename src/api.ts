@@ -1,6 +1,6 @@
 import { TPostCreateRequest, TPost } from 'types/post';
 import { addPost, getPost } from '_mocks/posts';
-import { getPosts } from './_mocks/posts';
+import { getPosts, updateMockPost } from './_mocks/posts';
 
 export const createPost = (post: TPostCreateRequest) => {
   return new Promise<{success: boolean}>((resolve, reject) => {
@@ -26,6 +26,17 @@ export const fetchPost = (url: string) => {
       resolve(post);
     } else {
       reject('post doesn\'t exist');
+    }
+  });
+};
+
+export const updatePost = (post: TPost) => {
+  return new Promise<TPost>((resolve, reject) => {
+    const updatedPost = updateMockPost(post);
+    if (updatedPost) {
+      resolve(updatedPost);
+    } else {
+      reject();
     }
   });
 };

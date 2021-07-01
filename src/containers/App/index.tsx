@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/posts/create">
             <ManagePost />
           </Route>
-          <Route exact path="/posts/:post">
+          <Route path="/posts/:post/:action?">
             <Post />
             <Footer />
           </Route>
