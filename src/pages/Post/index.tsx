@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import Container from 'components/Container';
 import { fetchPost } from 'api';
+import Container from 'components/Container';
+import Link from 'components/Link';
 import { TPost } from 'types/post';
 import parsePostContent from 'parsers/parsePostContent';
 import TheVoid from 'pages/TheVoid';
 
 import { PostProps as IProps } from './types';
-import ManagePost from 'pages/ManagePost';
 
 function Post({ match }: IProps) {
   const [post, setPost] = useState<TPost>(null);
@@ -17,16 +17,7 @@ function Post({ match }: IProps) {
     fetchPost(match.params.post)
       .then(setPost)
       .catch(console.log);
-
     return <TheVoid />;
-  }
-
-  console.log(match.params.action);
-
-  if (match.params.action == 'edit') {
-    return (
-      <ManagePost post={post} />
-    );
   }
 
   return (

@@ -3,22 +3,17 @@ import { withRouter } from 'react-router-dom';
 
 import Container from 'components/Container';
 import TextEditor from 'components/TextEditor/index';
-import { createPost, fetchPost, updatePost } from 'api';
+import { createPost, fetchPost } from 'api';
 
 import { ManagePostProps as IProps } from './types';
-import { TPost } from 'types/post';
 
-function PostManager({ history, match, post }: IProps) {
+function PostManager({ history, match, edit }: IProps) {
   const [currentPost, setPost] = useState<{ title: string, content: string }>(null);
 
   const onSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isPostValid()) {
-      if (match.params.action === 'edit') {
-        onUpdatePost({ ...post, title: currentPost.title, content: currentPost.content });
-      } else {
-        onCreatePost(currentPost);
-      }
+      onCreatePost(currentPost);
     }
   };
 
@@ -34,33 +29,34 @@ function PostManager({ history, match, post }: IProps) {
 
   const onCreatePost = (post: { title: string, content: string }) => {
     createPost(post)
-      .then(() => history.push('/posts'))
+      .then(() => history.push(`/${post.title}`))
       .catch(() => console.log('failed to create post'));
   };
 
-  const onUpdatePost = (updatedPost: TPost) => {
-    updatePost(updatedPost)
-      .then((responsePost) => history.push(`/posts/${responsePost.url}`));
-  };
-
-  if (match.params.post && match.params.action === 'edit' && !currentPost) {
-    if (post) {
-      setPost({ title: post.title, content: post.content });
-    } else {
+  if (!currentPost) {
+    if (edit) {
       fetchPost(match.params.post)
-        .then((fetchedPost) => setPost({ title: fetchedPost.title, content: fetchedPost.content }))
-        .catch(() => console.log('failed'));
-    }
-  } else if (!currentPost) {
-    setPost({ title: '', content: '' });
+        .then((result) => {
+          setPost(result);
+          if (result) {
+            const titleInput = (document.getElementById('title-input') as HTMLInputElement);
+            const contentInput = (document.getElementById('content-input') as HTMLTextAreaElement);
+            titleInput.value = result.title;
+            contentInput.value = result.content;
+          }
+        })
+        .catch(console.log);
+    } else {
+      setPost({ title: '', content: '' });
+    } 
   }
 
   return (
     <Container padding="full">
       <div>Post Manager</div>
       <form onSubmit={onSubmitPost}>
-        <input type="text" onChange={onChangeTitle} placeholder="Post Title" value={currentPost?.title} />
-        <TextEditor onChange={onChangeContent} value={currentPost?.content} />
+        <input type="text" onChange={onChangeTitle} placeholder="Post Title" id="title-input" />
+        <TextEditor onChange={onChangeContent} id="content-input" value={currentPost?.content} />
         <button role="submit">Save Post</button>
       </form>
     </Container>

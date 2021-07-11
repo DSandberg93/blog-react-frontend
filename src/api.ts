@@ -3,12 +3,12 @@ import { addPost, getPost } from '_mocks/posts';
 import { getPosts, updateMockPost } from './_mocks/posts';
 
 export const createPost = (post: TPostCreateRequest) => {
-  return new Promise<{success: boolean}>((resolve, reject) => {
-    const addPostResult = addPost(post);
-    if (addPostResult >= 0) {
-      resolve({ success: true });
+  return new Promise<{post: TPost}>((resolve, reject) => {
+    const result = addPost(post);
+    if (result) {
+      resolve({ post: result });
     } else {
-      reject({ success: false });
+      reject('unable to create post');
     }
   });
 };

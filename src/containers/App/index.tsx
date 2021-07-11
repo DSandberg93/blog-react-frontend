@@ -5,7 +5,7 @@ import Landing from 'pages/Landing';
 import TheVoid from 'pages/TheVoid';
 import Navbar from 'components/Navbar';
 import Posts from 'pages/Posts';
-import Footer from 'components/Footer';
+// import Footer from 'components/Footer';
 import ManagePost from 'pages/ManagePost';
 import Post from 'pages/Post';
 
@@ -19,18 +19,21 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Landing />
-            <Footer />
+            {/* <Footer /> */}
           </Route>
           <Route exact path="/posts">
             <Posts />
-            <Footer />
+            {/* <Footer /> */}
           </Route>
           <Route exact path="/posts/create">
             <ManagePost />
           </Route>
-          <Route path="/posts/:post/:action?">
+          <Route exact path="/posts">
             <Post />
-            <Footer />
+            {/* <Footer /> */}
+          </Route>
+          <Route exact path="/:post">
+            <ManagePost edit />
           </Route>
           <Route path="*">
             <TheVoid />
