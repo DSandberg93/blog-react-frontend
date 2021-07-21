@@ -1,13 +1,12 @@
 import React from 'react';
 import { TPost } from 'types/post';
 import Link from 'components/Link';
-import parsePostContent from 'parsers/parsePostContent';
 
-export default function PostExcerpt({ title, url, content }: TPost) {
+export default function PostExcerpt({ title, url, content, excerpt }: TPost) {
   return (
     <Link to={`/${url}`}>
       <h3>{title}</h3>
-      <div>{parsePostContent(content)[0]}</div>
+      <div>{excerpt}</div>
     </Link>
   );
 }

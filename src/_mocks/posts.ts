@@ -1,8 +1,9 @@
-import { TPostCreateRequest, TPost } from 'types/post';
+import { TPost } from 'types/post';
 
 const posts: TPost[] = [
   {
     content: 'content',
+    excerpt: 'excerpt',
     title: 'first',
     url: 'first',
   },
@@ -12,6 +13,7 @@ Tenderloin sirloin chuck spare ribs cow burgdoggen. Turkey pork chop chislic sir
 Cupim doner kevin, turkey meatball shank chuck filet mignon. Strip steak alcatra pancetta pork loin, buffalo brisket porchetta beef ribs fatback doner prosciutto spare ribs corned beef picanha. Cow porchetta pork belly tri-tip, venison prosciutto burgdoggen ball tip. Flank andouille bacon, venison sausage pork belly meatball. Frankfurter jowl shankle pork loin, drumstick prosciutto kevin leberkas pork brisket fatback bacon pork chop.
 Chuck turducken jerky, hamburger jowl rump ground round ham hock kielbasa kevin landjaeger. Corned beef chislic picanha andouille, ribeye cupim meatloaf fatback beef ribs ham spare ribs. T-bone doner alcatra, capicola prosciutto pork chop meatball beef ribs. Hamburger brisket burgdoggen drumstick flank.
 Chislic andouille pig ball tip, brisket cupim alcatra doner landjaeger pancetta capicola. Burgdoggen cow tenderloin pork chop. Brisket bacon kevin t-bone meatball, shoulder leberkas pastrami pork. Short loin pork belly pig shank sausage hamburger pork turducken jerky turkey bacon bresaola. Pastrami short loin ball tip t-bone.`,
+    excerpt: 'Bacon ipsum dolor amet rump chicken chislic pork loin bresaola drumstick picanha brisket turducken jowl',
     title: 'Bacon Ipsum',
     url: 'bacon-ipsum',
   },
@@ -21,11 +23,11 @@ export const getPosts = () => posts;
 
 export const getPost = (url: string) => posts.find((existingPost) => existingPost.url === url);
 
-export const addPost = (post: TPostCreateRequest): TPost => {
+export const addPost = (post: TPost) => {
   if (posts.findIndex((existingPost) => post.title === existingPost.title) >= 0) {
     return null;
   }
-  const newPost = { ...post, url: titleToUrl(post.title) };
+  const newPost = { ...post };
   posts.unshift(newPost);
   return newPost;
 };
@@ -39,12 +41,10 @@ export const deletePost = (title: string) => {
 };
 
 export const updateMockPost = (post: TPost) => {
-  const index = posts.findIndex((existingPost) => post.title === existingPost.title);
+  const index = posts.findIndex((existingPost) => post.url === existingPost.url);
   if (index >= 0) {
     posts[index] = post;
     return post;
   }
   return false;
 };
-
-const titleToUrl = (title: string) => title.toLowerCase().replace(' ', '-');

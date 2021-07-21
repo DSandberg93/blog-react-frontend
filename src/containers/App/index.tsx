@@ -33,6 +33,9 @@ function App() {
             {/* <Footer /> */}
           </Route>
           <Route exact path="/:post">
+            <Post />
+          </Route>
+          <Route exact path="/:post/edit">
             <ManagePost edit />
           </Route>
           <Route path="*">

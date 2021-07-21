@@ -5,7 +5,6 @@ import { fetchPost } from 'api';
 import Container from 'components/Container';
 import Link from 'components/Link';
 import { TPost } from 'types/post';
-import parsePostContent from 'parsers/parsePostContent';
 import TheVoid from 'pages/TheVoid';
 
 import { PostProps as IProps } from './types';
@@ -23,9 +22,9 @@ function Post({ match }: IProps) {
   return (
     <Container padding="full">
       <h2>{post?.title}</h2>
-      <div>{parsePostContent(post?.content)}</div>
+      <div dangerouslySetInnerHTML={{ __html: post?.content}} />
       {post?.title &&
-        <Link to={`/posts/${match.params.post}/edit`}>Edit {match.params.post}</Link>
+        <Link to={`/${match.params.post}/edit`}>Edit {match.params.post}</Link>
       }
     </Container>
   );

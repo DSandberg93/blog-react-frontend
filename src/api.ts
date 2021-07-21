@@ -1,8 +1,8 @@
-import { TPostCreateRequest, TPost } from 'types/post';
+import { TPost } from 'types/post';
 import { addPost, getPost } from '_mocks/posts';
 import { getPosts, updateMockPost } from './_mocks/posts';
 
-export const createPost = (post: TPostCreateRequest) => {
+export const createPost = (post: TPost) => {
   return new Promise<{post: TPost}>((resolve, reject) => {
     const result = addPost(post);
     if (result) {

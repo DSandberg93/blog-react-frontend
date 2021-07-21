@@ -1,8 +1,6 @@
-export type TPostCreateRequest = {
+export type TPost = {
+  url: string,
   title: string,
   content: string,
-};
-
-export type TPost = TPostCreateRequest & {
-  url: string,
+  excerpt: string,
 };
